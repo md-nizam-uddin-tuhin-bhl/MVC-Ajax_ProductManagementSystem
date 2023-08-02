@@ -1,0 +1,123 @@
+﻿
+@model Product.Models.Category
+
+@using (Ajax.BeginForm("Create", "Categories", null, new AjaxOptions { HttpMethod = "POST", OnSuccess = "", OnFailure = "" }, new { enctype = "multipart/form-data" }))
+{
+@Html.AntiForgeryToken()
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="categoryModalLabel">Add new category</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                                <div class="modal-body">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "col-form-label" })
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                    </div>
+                                    <br />
+
+                                    <div id="wholeItem">
+
+
+                                        <div id="0">
+                                            <hr />
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Items[0].Name, htmlAttributes: new { @class = "col-form-label" })
+                                                @Html.EditorFor(model => model.Items[0].Name, new { htmlAttributes = new { @class = "form-control storeValueForElement" } })
+                                                @Html.ValidationMessageFor(model => model.Items[0].Name, "", new { @class = "text-danger" })
+                                            </div>
+                                            <br />
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Items[0].Description, htmlAttributes: new { @class = "col-form-label" })
+                                                @Html.TextAreaFor(model => model.Items[0].Description, htmlAttributes: new { @class = "form-control storeValueForElement" })
+                                                @Html.ValidationMessageFor(model => model.Items[0].Description, "", new { @class = "text-danger" })
+                                            </div>
+                                            <br />
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Items[0].Image, htmlAttributes: new { @class = "col-form-label" })
+                                                <br />
+                                                <img id="_0" src="~/Images/transparent_phone.jpg" width="300" data-tag="itemImageinCategory" />
+                                                <input id="Image" name="Image" type="file" data-tag="_0" onchange="changeImage(this, event)" />
+                                                @Html.ValidationMessageFor(model => model.Items[0].Image, "", new { @class = "text-danger" })
+                                            </div>
+                                            <br />
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Items[0].EntryDate, htmlAttributes: new { @class = "col-form-label" })
+                                                @Html.EditorFor(model => model.Items[0].EntryDate, new { htmlAttributes = new { @class = "form-control storeValueForElement" } })
+                                                @Html.ValidationMessageFor(model => model.Items[0].EntryDate, "", new { @class = "text-danger" })
+                                            </div>
+                                            <br />
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Items[0].Quantity, htmlAttributes: new { @class = "col-form-label" })
+                                                @Html.EditorFor(model => model.Items[0].Quantity, new { htmlAttributes = new { @class = "form-control storeValueForElement" } })
+                                                @Html.ValidationMessageFor(model => model.Items[0].Quantity, "", new { @class = "text-danger" })
+                                            </div>
+
+                                            <button id="delete_0" type="button" class="btn btn-info btn-block" onclick="deleteDiv('_0')">Delete</button>
+                                            @*<button id="edit_0" type="button" class="btn btn-info btn-block" onclick="editDiv('_0')">Edit</button>*@
+
+                                            
+                                        </div>
+
+                                    </div>
+                                    <br />
+                                    <hr />
+                                    <div class="col-md-12">
+                                        <button id="addModelButton" type="button" class="btn btn-info btn-block">Add more product</button>
+                                    </div>
+                                    <input id="sl" type="hidden" value="0" />
+                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <input type="submit" class="btn btn-primary" value="Save" />
+                                                </div>}
+
+
+
+<script>
+    function deleteDiv(id) {
+
+        $("#" + id.split('_')[1]).remove();
+        var present_sl = parseInt($('#sl').val());
+        var previous_sl = parseInt(present_sl) - 1;
+        $('#sl').val(previous_sl);
+
+        //$("#wholeItem > div").each(function (i) {
+
+        //    console.log('each ' + i);
+        //    var thisHtml = $(this).html();
+        //    console.log(thisHtml);
+        //    thisHtml = thisHtml.split('_' + $(this).attr("id")).join('_' + i.toString());
+        //    thisHtml = thisHtml.split('[' + $(this).attr("id") + ']').join('[' + i.toString() + ']');
+        //    console.log('thisHtml');
+        //    console.log(thisHtml);
+        //    $(this).attr("id", i);
+        //    $(this).html(thisHtml);
+        //    console.log('$(this).html()');
+        //    console.log($(this).html());
+
+        //    i = i + 1;
+        //});
+
+    }
+
+
+    function editDiv(id) {
+
+        alert(id);
+
+    }
+
+</script>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+}
